@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useFetch from "./services/starshipService";
 
 function App() {
+  const [starshipsData, setStarshipsData] = useState([]);
+  const fetchData = useFetch();
+
+  const getStarshipsData = async () => {
+    const retrievedData = await fetchData("https://swapi.info/api/starships");
+    setStarshipsData(retrievedData);
+  };
+
+  useEffect(() => {
+    getStarshipsData;
+  }, []);
+
   return (
-    <div>
-      <h2>GA SEB</h2>
-    </div>
+    <>
+      {starshipsData.map((starship) => (
+        <div>{JSON.stringify(starship)}</div>
+      ))}
+    </>
   );
 }
 
