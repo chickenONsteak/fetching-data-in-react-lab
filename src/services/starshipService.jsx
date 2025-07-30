@@ -1,7 +1,15 @@
+import { useState } from "react";
+
 const useFetch = () => {
-  const fetchData = async (url) => {
+  // const [isLoading, setIsLoading] = useState(false);
+  // const controller = new AbortController();
+
+  const fetchData = async (url, signal) => {
+    // setIsLoading(true);
+
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { signal });
+
       if (!response.ok) {
         throw new Error("Failed to fetch starships.");
       }
@@ -13,6 +21,7 @@ const useFetch = () => {
       throw new Error("network error");
     }
   };
+  // setIsLoading(false);
 
   return fetchData;
 };
